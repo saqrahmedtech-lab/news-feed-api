@@ -1,0 +1,19 @@
+{
+  "name": "news-feed-api",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/saqrahmedtech-lab/news-feed-api.git"
+  },
+  "author": "Ahmed Essam",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/saqrahmedtech-lab/news-feed-api/issues"
+  },
+  "homepage": "https://github.com/saqrahmedtech-lab/news-feed-api#readme",
+  "description": ""
+}
