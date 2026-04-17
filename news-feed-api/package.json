@@ -2,8 +2,10 @@
   "name": "news-feed-api",
   "version": "1.0.0",
   "main": "server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,8 @@
     "url": "https://github.com/saqrahmedtech-lab/news-feed-api/issues"
   },
   "homepage": "https://github.com/saqrahmedtech-lab/news-feed-api#readme",
-  "description": ""
+  "description": "A server that stores news articles in a file, lets users add and filter them, and streams live updates to the browser.",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
 }

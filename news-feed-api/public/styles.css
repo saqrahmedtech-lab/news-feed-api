@@ -1,0 +1,389 @@
+/* ─────────────────────────────────────────
+   THE DISPATCH — Editorial News Page CSS
+   Aesthetic: Refined editorial / broadsheet
+   ───────────────────────────────────────── */
+
+/* ── Tokens ── */
+:root {
+  --ink: #1a1814;
+  --ink-light: #4a4540;
+  --ink-faint: #8a847e;
+  --paper: #f7f4ef;
+  --paper-2: #ede9e2;
+  --rule: #d6d0c8;
+  --accent: #b5260e; /* editorial red */
+  --accent-2: #1a5c8f; /* tag blue */
+  --accent-3: #2a7a4b; /* tag green */
+  --accent-4: #7a4a1a; /* tag amber */
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Source Serif 4", Georgia, serif;
+
+  --card-radius: 2px;
+  --transition: 0.22s ease;
+}
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── Header ── */
+.site-header {
+  border-bottom: 3px double var(--ink);
+  background: var(--paper);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.header-meta {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  padding-top: 0.8rem;
+}
+
+.header-sep {
+  margin: 0 0.5rem;
+}
+
+.site-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--ink);
+  padding: 0.25rem 0;
+}
+
+.header-nav {
+  display: flex;
+  gap: 2rem;
+  padding-bottom: 0.8rem;
+  border-top: 1px solid var(--rule);
+  width: 100%;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+.header-nav a {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  transition: color var(--transition);
+}
+
+.header-nav a:hover {
+  color: var(--accent);
+}
+
+/* ── Main layout ── */
+.main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem 2rem 4rem;
+}
+
+/* ── Section label ── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-label span {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--accent);
+  font-family: var(--font-body);
+}
+
+.section-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--card-radius);
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  cursor: pointer;
+  position: relative;
+  transition:
+    box-shadow var(--transition),
+    transform var(--transition),
+    border-color var(--transition);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--card-radius);
+  border-left: 3px solid transparent;
+  transition: border-color var(--transition);
+}
+
+.card:hover {
+  box-shadow: 0 8px 32px rgba(26, 24, 20, 0.1);
+  transform: translateY(-2px);
+  border-color: #c8c2b8;
+}
+
+.card:hover::before {
+  border-left-color: var(--accent);
+}
+
+/* ── Hero card ── */
+.card--hero {
+  margin-bottom: 3rem;
+  padding: 2.5rem;
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.card--hero::before {
+  display: none;
+}
+
+.card--hero:hover {
+  box-shadow: 0 12px 48px rgba(26, 24, 20, 0.3);
+  transform: translateY(-3px);
+  border-color: var(--ink);
+}
+
+.card--hero .card__tag {
+  background: var(--accent);
+  color: #fff;
+}
+
+.card--hero .card__title {
+  color: var(--paper);
+}
+
+.card--hero .card__desc {
+  color: rgba(247, 244, 239, 0.75);
+}
+
+.card--hero .card__footer {
+  border-top-color: rgba(247, 244, 239, 0.18);
+}
+
+.card--hero .card__date,
+.card--hero .card__read {
+  color: rgba(247, 244, 239, 0.5);
+}
+
+/* ── Tags ── */
+.card__tag {
+  display: inline-block;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 2px;
+  background: var(--paper-2);
+  color: var(--ink-light);
+  width: fit-content;
+  font-family: var(--font-body);
+}
+
+.card__tag--tech {
+  background: #deeaf4;
+  color: var(--accent-2);
+}
+.card__tag--politics {
+  background: #fde8e5;
+  color: var(--accent);
+}
+.card__tag--culture {
+  background: #e5f3ec;
+  color: var(--accent-3);
+}
+
+/* ── Title ── */
+.card__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.28;
+  color: var(--ink);
+  transition: color var(--transition);
+}
+
+.card__title--hero {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 900;
+}
+
+.card:hover .card__title:not(.card__title--hero) {
+  color: var(--accent);
+}
+
+/* ── Description ── */
+.card__desc {
+  font-size: 0.95rem;
+  color: var(--ink-light);
+  line-height: 1.7;
+  flex: 1;
+}
+
+/* ── Footer (date + read time) ── */
+.card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--rule);
+  padding-top: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.card__date {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  letter-spacing: 0.04em;
+  font-style: italic;
+}
+
+.card__read {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ── Grid ── */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* ── Site Footer ── */
+.site-footer {
+  border-top: 3px double var(--ink);
+  text-align: center;
+  padding: 1.5rem 2rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  font-family: var(--font-body);
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.site-header {
+  animation: fadeUp 0.4s ease both;
+}
+.card--hero {
+  animation: fadeUp 0.5s 0.1s ease both;
+}
+.section-label {
+  animation: fadeUp 0.4s 0.2s ease both;
+}
+
+.news-grid .card:nth-child(1) {
+  animation: fadeUp 0.45s 0.25s ease both;
+}
+.news-grid .card:nth-child(2) {
+  animation: fadeUp 0.45s 0.32s ease both;
+}
+.news-grid .card:nth-child(3) {
+  animation: fadeUp 0.45s 0.39s ease both;
+}
+.news-grid .card:nth-child(4) {
+  animation: fadeUp 0.45s 0.46s ease both;
+}
+.news-grid .card:nth-child(5) {
+  animation: fadeUp 0.45s 0.53s ease both;
+}
+.news-grid .card:nth-child(6) {
+  animation: fadeUp 0.45s 0.6s ease both;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 580px) {
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .site-title {
+    font-size: 2.2rem;
+  }
+
+  .header-nav {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .card--hero {
+    padding: 1.6rem;
+  }
+
+  .card__title--hero {
+    font-size: 1.5rem;
+  }
+}
