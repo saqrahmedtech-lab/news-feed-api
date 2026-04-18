@@ -517,20 +517,29 @@
         outline: none;
         transition: border-color 0.2s;
       }
-      .search-input::placeholder { color: var(--ink-dim); }
-      .search-input:focus { border-color: var(--accent2); }
-      .no-results { text-align: center; padding: 4rem 0; color: var(--ink-dim); font-size: 0.9rem; }
+      .search-input::placeholder {
+        color: var(--ink-dim);
+      }
+      .search-input:focus {
+        border-color: var(--accent2);
+      }
+      .no-results {
+        text-align: center;
+        padding: 4rem 0;
+        color: var(--ink-dim);
+        font-size: 0.9rem;
+      }
     </style>
   </head>
   <body>
     <nav class="site-nav">
       <span class="nav-logo">the_dispatch</span>
       <div class="nav-links">
-        <a href="world.html">world</a>
-        <a href="politics.html">politics</a>
-        <a href="tech.html" class="active">tech</a>
-        <a href="culture.html">culture</a>
-        <a href="opinion.html">opinion</a>
+        <a href="world">world</a>
+        <a href="politics">politics</a>
+        <a href="tech" class="active">tech</a>
+        <a href="culture">culture</a>
+        <a href="opinion">opinion</a>
       </div>
     </nav>
 
@@ -569,7 +578,12 @@
     </div>
 
     <div class="search-wrap">
-      <input id="search-input" class="search-input" type="search" placeholder="search articles by title…" />
+      <input
+        id="search-input"
+        class="search-input"
+        type="search"
+        placeholder="search articles by title…"
+      />
     </div>
 
     <main class="main" id="articles"></main>
@@ -637,7 +651,9 @@
       }
 
       function fetchArticles(name = "") {
-        const url = name ? `/api/tech?name=${encodeURIComponent(name)}` : "/api/tech";
+        const url = name
+          ? `/api/tech?name=${encodeURIComponent(name)}`
+          : "/api/tech";
         fetch(url)
           .then((r) => r.json())
           .then(({ data }) => renderArticles(data));

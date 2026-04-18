@@ -28,21 +28,19 @@ const fileTypes = {
   ".zip": "application/zip",
 };
 
+const urlToFile = {
+  "/": "index.html",
+  "/world": "world.html",
+  "/politics": "politics.html",
+  "/tech": "tech.html",
+  "/culture": "culture.html",
+  "/opinion": "opinion.html",
+};
+
 export async function serveStaticFiles(req, res) {
-  const fileName =
-    req.url === "/"
-      ? "index.html"
-      : req.url === "/world"
-        ? "world.html"
-        : req.url === "/politics"
-          ? "politics.html"
-          : req.url === "/tech"
-            ? "tech.html"
-            : req.url === "culture"
-              ? "culture.html"
-              : req.url === "opinion"
-                ? "opinion.html"
-                : req.url.slice(1);
+  const fileName = urlToFile[req.url] ?? req.url.slice(1);
+
+  console.log({ url: req.url, fileName });
   const filePath = path.join(__dirname, "..", "public", fileName);
   const fileExt = path.extname(filePath);
 

@@ -499,20 +499,32 @@
         outline: none;
         transition: border-color 0.2s;
       }
-      .search-input::placeholder { color: var(--ink-dim); font-style: italic; }
-      .search-input:focus { border-bottom-color: var(--highlight); background: #fffef5; }
-      .no-results { text-align: center; padding: 4rem 0; color: var(--ink-dim); font-style: italic; font-size: 1.1rem; }
+      .search-input::placeholder {
+        color: var(--ink-dim);
+        font-style: italic;
+      }
+      .search-input:focus {
+        border-bottom-color: var(--highlight);
+        background: #fffef5;
+      }
+      .no-results {
+        text-align: center;
+        padding: 4rem 0;
+        color: var(--ink-dim);
+        font-style: italic;
+        font-size: 1.1rem;
+      }
     </style>
   </head>
   <body>
     <nav class="site-nav">
       <span class="nav-logo">The Dispatch</span>
       <div class="nav-links">
-        <a href="world.html">World</a>
-        <a href="politics.html">Politics</a>
-        <a href="tech.html">Tech</a>
-        <a href="culture.html">Culture</a>
-        <a href="opinion.html" class="active">Opinion</a>
+        <a href="world">World</a>
+        <a href="politics">Politics</a>
+        <a href="tech">Tech</a>
+        <a href="culture">Culture</a>
+        <a href="opinion" class="active">Opinion</a>
       </div>
     </nav>
 
@@ -532,7 +544,12 @@
     </div>
 
     <div class="search-wrap">
-      <input id="search-input" class="search-input" type="search" placeholder="Search articles by title…" />
+      <input
+        id="search-input"
+        class="search-input"
+        type="search"
+        placeholder="Search articles by title…"
+      />
     </div>
 
     <main class="main" id="articles"></main>
@@ -545,7 +562,8 @@
       function renderArticles(articles) {
         const main = document.getElementById("articles");
         if (!articles.length) {
-          main.innerHTML = '<p class="no-results">No articles match your search.</p>';
+          main.innerHTML =
+            '<p class="no-results">No articles match your search.</p>';
           return;
         }
         const [first, ...rest] = articles;
@@ -587,7 +605,9 @@
       }
 
       function fetchArticles(name = "") {
-        const url = name ? `/api/opinion?name=${encodeURIComponent(name)}` : "/api/opinion";
+        const url = name
+          ? `/api/opinion?name=${encodeURIComponent(name)}`
+          : "/api/opinion";
         fetch(url)
           .then((r) => r.json())
           .then(({ data }) => renderArticles(data));
