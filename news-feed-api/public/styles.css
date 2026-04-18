@@ -387,3 +387,31 @@ a {
     font-size: 1.5rem;
   }
 }
+
+/* ── Search ── */
+.search-wrap {
+  max-width: 1200px;
+  margin: 2rem auto 0;
+  padding: 0 2rem;
+}
+
+.search-input {
+  width: 100%;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-bottom: 2px solid var(--accent);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 0.8rem 1.2rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input::placeholder {
+  color: var(--ink-faint);
+}
+
+.search-input:focus {
+  border-color: var(--accent-2);
+}

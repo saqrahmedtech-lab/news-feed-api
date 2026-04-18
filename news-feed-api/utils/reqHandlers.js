@@ -1,4 +1,5 @@
 import { filterDataByCategory } from "./filterDataByCategory.js";
+import { getAllArticles } from "./getAllArticles.js";
 
 const categoryMap = {
   "/api/politics": "Politics",
@@ -10,6 +11,12 @@ const categoryMap = {
 
 export async function handleGetRequests(res, url) {
   const searchName = url.searchParams.get("search");
+
+  if (url.pathname === "/api/news") {
+    getAllArticles(res, searchName);
+    return;
+  }
+
   const categoryName = categoryMap[url.pathname];
   if (!categoryName) {
     res.statusCode = 404;

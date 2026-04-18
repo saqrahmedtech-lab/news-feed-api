@@ -33,6 +33,11 @@
       </div>
     </header>
 
+    <!-- Search -->
+    <div class="search-wrap">
+      <input id="search-input" class="search-input" type="search" placeholder="search articles…" />
+    </div>
+
     <!-- Main content -->
     <main class="main">
       <!-- Featured / hero card -->
@@ -71,5 +76,35 @@
     <footer class="site-footer">
       <p>© 2026 The Dispatch. All rights reserved.</p>
     </footer>
+
+    <script>
+      function fetchArticles(search = "") {
+        const url = search ? `/api/news?search=${encodeURIComponent(search)}` : "/api/news";
+        fetch(url)
+          .then((r) => r.json())
+          .then(({ data }) => {
+            const container = document.getElementById("news-container");
+            container.innerHTML = data
+              .map(
+                (a) => `
+              <article class="card">
+                <div class="card__tag">${a.tag}</div>
+                <h2 class="card__title">${a.title}</h2>
+                <p class="card__desc">${a.description}</p>
+                <footer class="card__footer">
+                  <span class="card__date">${a.date}</span>
+                  <span class="card__read">${a.readTime}</span>
+                </footer>
+              </article>`,
+              )
+              .join("");
+          });
+      }
+
+      fetchArticles();
+      document.getElementById("search-input").addEventListener("input", (e) => {
+        fetchArticles(e.target.value);
+      });
+    </script>
   </body>
 </html>
