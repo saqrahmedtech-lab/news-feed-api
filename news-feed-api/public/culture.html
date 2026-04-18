@@ -472,6 +472,28 @@
           padding-right: 1.5rem;
         }
       }
+
+      /* ── Search ── */
+      .search-wrap {
+        max-width: 1300px;
+        margin: 2rem auto 0;
+        padding: 0 3rem;
+      }
+      .search-input {
+        width: 100%;
+        background: var(--card-bg);
+        border: 1px solid var(--rule);
+        border-bottom: 2px solid var(--accent);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 1rem;
+        padding: 0.8rem 1.2rem;
+        outline: none;
+        transition: border-color 0.2s;
+      }
+      .search-input::placeholder { color: var(--ink-dim); font-style: italic; }
+      .search-input:focus { border-color: var(--accent2); }
+      .no-results { text-align: center; padding: 4rem 0; color: var(--ink-dim); font-style: italic; font-size: 1.1rem; }
     </style>
   </head>
   <body>
@@ -501,18 +523,25 @@
       </div>
     </div>
 
+    <div class="search-wrap">
+      <input id="search-input" class="search-input" type="search" placeholder="Search articles by title…" />
+    </div>
+
     <main class="main" id="articles"></main>
 
     <footer class="site-footer">© 2026 The Dispatch — Culture Edition</footer>
 
     <script>
-      fetch("/api/culture")
-        .then((r) => r.json())
-        .then(({ data }) => {
-          const main = document.getElementById("articles");
-          const [first, ...rest] = data;
+      let allArticles = [];
 
-          main.innerHTML = `
+      function renderArticles(articles) {
+        const main = document.getElementById("articles");
+        if (!articles.length) {
+          main.innerHTML = '<p class="no-results">No articles match your search.</p>';
+          return;
+        }
+        const [first, ...rest] = articles;
+        main.innerHTML = `
           <div class="divider"><span>Featured Story</span></div>
           <article class="card-featured">
             <div class="featured-accent-col">
@@ -534,7 +563,7 @@
           <div class="divider"><span>All Stories</span></div>
           <div class="news-grid">${rest
             .map(
-              (a, i) => `
+              (a) => `
             <article class="card">
               <div class="tag">${a.tag}</div>
               <h3>${a.title}</h3>
@@ -548,7 +577,19 @@
             )
             .join("")}
           </div>`;
-        });
+      }
+
+      function fetchArticles(name = "") {
+        const url = name ? `/api/culture?name=${encodeURIComponent(name)}` : "/api/culture";
+        fetch(url)
+          .then((r) => r.json())
+          .then(({ data }) => renderArticles(data));
+      }
+
+      fetchArticles();
+      document.getElementById("search-input").addEventListener("input", (e) => {
+        fetchArticles(e.target.value);
+      });
     </script>
   </body>
 </html>
