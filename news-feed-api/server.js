@@ -4,9 +4,9 @@ import { serveStaticFiles } from "./utils/serveStaticFiles.js";
 const server = http.createServer((req, res) => {
   if (req.url.startsWith("/api/")) {
     handleGetRequests(req, res);
-    return;
+  } else {
+    serveStaticFiles(req, res);
   }
-  serveStaticFiles(req, res);
 });
 
 server.listen(8000);

@@ -1,7 +1,7 @@
 import { filterDataByCategory } from "./filterDataByCategory.js";
 
 export async function handleGetRequests(req, res) {
-  console.log(req.url);
+  console.log(req);
   if (req.url === "/api/politics") {
     filterDataByCategory("Politics", res);
   }

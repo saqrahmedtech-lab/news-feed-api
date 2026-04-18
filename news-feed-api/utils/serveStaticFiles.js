@@ -40,7 +40,6 @@ const urlToFile = {
 export async function serveStaticFiles(req, res) {
   const fileName = urlToFile[req.url] ?? req.url.slice(1);
 
-  console.log({ url: req.url, fileName });
   const filePath = path.join(__dirname, "..", "public", fileName);
   const fileExt = path.extname(filePath);
 

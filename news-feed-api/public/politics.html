@@ -518,7 +518,7 @@
 
       function fetchArticles(name = "") {
         const url = name
-          ? `/api/politics?name=${encodeURIComponent(name)}`
+          ? `/api/politics?search=${encodeURIComponent(name)}`
           : "/api/politics";
         fetch(url)
           .then((r) => r.json())

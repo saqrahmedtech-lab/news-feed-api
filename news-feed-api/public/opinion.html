@@ -606,7 +606,7 @@
 
       function fetchArticles(name = "") {
         const url = name
-          ? `/api/opinion?name=${encodeURIComponent(name)}`
+          ? `/api/opinion?search=${encodeURIComponent(name)}`
           : "/api/opinion";
         fetch(url)
           .then((r) => r.json())
