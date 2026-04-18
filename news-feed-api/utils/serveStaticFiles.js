@@ -49,7 +49,7 @@ export async function serveStaticFiles(req, res) {
     res.statusCode = 200;
     res.end(fileContent);
   } catch (err) {
-    res.statusCode = 400;
+    res.statusCode = 404;
     res.setHeader("Content-Type", "text/plain");
     res.end("File not found");
   }
