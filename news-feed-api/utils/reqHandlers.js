@@ -1,20 +1,20 @@
 import { filterDataByCategory } from "./filterDataByCategory.js";
 
-export async function handleGetRequests(req, res) {
-  console.log(req);
-  if (req.url === "/api/politics") {
-    filterDataByCategory("Politics", res);
+export async function handleGetRequests(req, res, url) {
+  const searchName = url.searchParams.get("search");
+  if (url.pathname === "/api/politics") {
+    filterDataByCategory("Politics", res, searchName);
   }
-  if (req.url === "/api/world") {
-    filterDataByCategory("World", res);
+  if (url.pathname === "/api/world") {
+    filterDataByCategory("World", res, searchName);
   }
-  if (req.url === "/api/tech") {
-    filterDataByCategory("Tech", res);
+  if (url.pathname === "/api/tech") {
+    filterDataByCategory("Tech", res, searchName);
   }
-  if (req.url === "/api/culture") {
-    filterDataByCategory("Culture", res);
+  if (url.pathname === "/api/culture") {
+    filterDataByCategory("Culture", res, searchName);
   }
-  if (req.url === "/api/opinion") {
-    filterDataByCategory("Opinion", res);
+  if (url.pathname === "/api/opinion") {
+    filterDataByCategory("Opinion", res, searchName);
   }
 }

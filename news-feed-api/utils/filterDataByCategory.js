@@ -1,15 +1,22 @@
 import path from "node:path";
 import fs from "node:fs/promises";
 
-export async function filterDataByCategory(category, res) {
+export async function filterDataByCategory(category, res, searchName) {
   const __dirname = import.meta.dirname;
   const articlesPath = path.join(__dirname, "..", "public", "data.json");
   try {
     const content = await fs.readFile(articlesPath, "utf8");
-    const parsedContent = await JSON.parse(content);
-    const data = parsedContent.articles.filter(
-      (el) => el.category === category,
-    );
+    const parsedContent = JSON.parse(content);
+    const data = parsedContent.articles
+      .filter((el) => el.category === category)
+      .filter((el) => {
+        if (!searchName) return true; // no search param → return everything
+        const search = searchName.toLowerCase();
+        return (
+          el.title.toLowerCase().includes(search) ||
+          el.description.toLowerCase().includes(search)
+        );
+      });
 
     res.statusCode = 200;
     res.setHeader("Content-Type", "application/json");
