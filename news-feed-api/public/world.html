@@ -502,10 +502,9 @@
     <script>
       fetch("/api/world")
         .then((r) => r.json())
-        .then(({ articles }) => {
-          const cat = articles.filter((a) => a.category === "World");
+        .then(({ data }) => {
           const main = document.getElementById("articles");
-          const [first, ...rest] = cat;
+          const [first, ...rest] = data;
 
           // Featured
           main.innerHTML = `

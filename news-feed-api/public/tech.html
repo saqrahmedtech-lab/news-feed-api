@@ -555,10 +555,9 @@
     <script>
       fetch("/api/tech")
         .then((r) => r.json())
-        .then(({ articles }) => {
-          const cat = articles.filter((a) => a.category === "Tech");
+        .then(({ data }) => {
           const main = document.getElementById("articles");
-          const [first, ...rest] = cat;
+          const [first, ...rest] = data;
 
           main.innerHTML = `
           <div class="divider"><span>featured</span></div>

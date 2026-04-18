@@ -516,10 +516,9 @@
     <script>
       fetch("/api/opinion")
         .then((r) => r.json())
-        .then(({ articles }) => {
-          const cat = articles.filter((a) => a.category === "Opinion");
+        .then(({ data }) => {
           const main = document.getElementById("articles");
-          const [first, ...rest] = cat;
+          const [first, ...rest] = data;
 
           main.innerHTML = `
           <div class="divider"><span>Lead Column</span></div>

@@ -428,10 +428,9 @@
     <script>
       fetch("/api/politics")
         .then((r) => r.json())
-        .then(({ articles }) => {
-          const cat = articles.filter((a) => a.category === "Politics");
+        .then(({ data }) => {
           const main = document.getElementById("articles");
-          const [first, ...rest] = cat;
+          const [first, ...rest] = data;
 
           main.innerHTML = `
           <div class="divider"><span>Lead Story</span></div>
