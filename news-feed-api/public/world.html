@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World — The Dispatch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0d1117;
+        --bg2: #141b24;
+        --ink: #e8e0d0;
+        --ink-dim: #9a9080;
+        --ink-faint: #4a4440;
+        --accent: #c8922a;
+        --accent2: #7eb8d4;
+        --rule: #2a3040;
+        --card-bg: #111820;
+        --card-border: #1e2a38;
+        --font-head: "Cormorant Garamond", Georgia, serif;
+        --font-body: "Crimson Pro", Georgia, serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 18px;
+        line-height: 1.7;
+        min-height: 100vh;
+        /* subtle grid pattern */
+        background-image:
+          linear-gradient(rgba(200, 146, 42, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(200, 146, 42, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ── Header ── */
+      .site-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 3rem;
+        border-bottom: 1px solid var(--rule);
+        background: rgba(13, 17, 23, 0.95);
+        backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-logo {
+        font-family: var(--font-head);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: 0.05em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-links a {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--ink-dim);
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--accent);
+      }
+
+      /* ── Hero Banner ── */
+      .category-hero {
+        padding: 5rem 3rem 4rem;
+        max-width: 1300px;
+        margin: 0 auto;
+        display: flex;
+        align-items: flex-end;
+        gap: 3rem;
+        border-bottom: 1px solid var(--rule);
+        animation: fadeUp 0.6s ease both;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero-label {
+        writing-mode: vertical-rl;
+        text-orientation: mixed;
+        transform: rotate(180deg);
+        font-size: 0.65rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--accent);
+        white-space: nowrap;
+        padding-bottom: 0.5rem;
+      }
+
+      .hero-text h1 {
+        font-family: var(--font-head);
+        font-size: clamp(4rem, 10vw, 8rem);
+        font-weight: 700;
+        line-height: 0.9;
+        color: var(--ink);
+        letter-spacing: -0.02em;
+      }
+
+      .hero-text h1 span {
+        color: var(--accent);
+      }
+
+      .hero-text p {
+        margin-top: 1.5rem;
+        max-width: 520px;
+        color: var(--ink-dim);
+        font-size: 1rem;
+        font-style: italic;
+        font-weight: 300;
+      }
+
+      .hero-stat {
+        margin-left: auto;
+        text-align: right;
+      }
+
+      .hero-stat .num {
+        font-family: var(--font-head);
+        font-size: 4rem;
+        font-weight: 600;
+        color: var(--accent);
+        line-height: 1;
+      }
+
+      .hero-stat .label {
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+        margin-top: 0.25rem;
+      }
+
+      /* ── Main ── */
+      .main {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 3rem;
+      }
+
+      /* ── Section divider ── */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .divider span {
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        white-space: nowrap;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+
+      /* ── Featured card ── */
+      .card-featured {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-left: 3px solid var(--accent);
+        padding: 2.5rem;
+        margin-bottom: 3rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+        transition:
+          border-color 0.25s,
+          transform 0.25s;
+        animation: fadeUp 0.5s 0.15s ease both;
+        cursor: pointer;
+      }
+
+      .card-featured:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .card-featured .tag {
+        display: inline-block;
+        font-size: 0.62rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        border: 1px solid var(--accent);
+        padding: 0.2rem 0.7rem;
+        margin-bottom: 1rem;
+      }
+
+      .card-featured h2 {
+        font-family: var(--font-head);
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.2;
+        color: var(--ink);
+        margin-bottom: 1rem;
+      }
+
+      .card-featured p {
+        color: var(--ink-dim);
+        font-size: 0.98rem;
+        font-weight: 300;
+        line-height: 1.75;
+      }
+
+      .card-meta {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+        padding-top: 1.2rem;
+        border-top: 1px solid var(--rule);
+      }
+
+      .card-date {
+        font-size: 0.78rem;
+        color: var(--ink-faint);
+        font-style: italic;
+      }
+
+      .card-author {
+        font-size: 0.78rem;
+        color: var(--ink-dim);
+        letter-spacing: 0.05em;
+      }
+
+      .card-read {
+        margin-left: auto;
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent2);
+      }
+
+      .featured-number {
+        font-family: var(--font-head);
+        font-size: 12rem;
+        font-weight: 700;
+        color: var(--rule);
+        line-height: 1;
+        text-align: center;
+        user-select: none;
+      }
+
+      /* ── Grid ── */
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        padding: 1.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        cursor: pointer;
+        transition:
+          border-color 0.25s,
+          transform 0.25s,
+          background 0.25s;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--accent), transparent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.35s ease;
+      }
+
+      .card:hover {
+        border-color: var(--rule);
+        background: var(--bg2);
+        transform: translateY(-3px);
+      }
+
+      .card:hover::after {
+        transform: scaleX(1);
+      }
+
+      .card .tag {
+        font-size: 0.62rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 400;
+      }
+
+      .card h3 {
+        font-family: var(--font-head);
+        font-size: 1.25rem;
+        font-weight: 600;
+        line-height: 1.3;
+        color: var(--ink);
+        flex: 1;
+      }
+
+      .card p {
+        font-size: 0.9rem;
+        color: var(--ink-dim);
+        font-weight: 300;
+        line-height: 1.7;
+      }
+
+      .card .card-meta {
+        margin-top: 0;
+      }
+
+      /* ── Footer ── */
+      .site-footer {
+        border-top: 1px solid var(--rule);
+        text-align: center;
+        padding: 2rem;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        color: var(--ink-faint);
+        margin-top: 4rem;
+      }
+
+      /* Stagger animations */
+      .news-grid .card:nth-child(1) {
+        animation: fadeUp 0.4s 0.2s ease both;
+      }
+      .news-grid .card:nth-child(2) {
+        animation: fadeUp 0.4s 0.27s ease both;
+      }
+      .news-grid .card:nth-child(3) {
+        animation: fadeUp 0.4s 0.34s ease both;
+      }
+      .news-grid .card:nth-child(4) {
+        animation: fadeUp 0.4s 0.41s ease both;
+      }
+      .news-grid .card:nth-child(5) {
+        animation: fadeUp 0.4s 0.48s ease both;
+      }
+      .news-grid .card:nth-child(6) {
+        animation: fadeUp 0.4s 0.55s ease both;
+      }
+      .news-grid .card:nth-child(7) {
+        animation: fadeUp 0.4s 0.62s ease both;
+      }
+      .news-grid .card:nth-child(8) {
+        animation: fadeUp 0.4s 0.69s ease both;
+      }
+      .news-grid .card:nth-child(9) {
+        animation: fadeUp 0.4s 0.76s ease both;
+      }
+      .news-grid .card:nth-child(10) {
+        animation: fadeUp 0.4s 0.83s ease both;
+      }
+      .news-grid .card:nth-child(11) {
+        animation: fadeUp 0.4s 0.9s ease both;
+      }
+      .news-grid .card:nth-child(12) {
+        animation: fadeUp 0.4s 0.97s ease both;
+      }
+      .news-grid .card:nth-child(13) {
+        animation: fadeUp 0.4s 1.04s ease both;
+      }
+      .news-grid .card:nth-child(14) {
+        animation: fadeUp 0.4s 1.11s ease both;
+      }
+      .news-grid .card:nth-child(15) {
+        animation: fadeUp 0.4s 1.18s ease both;
+      }
+      .news-grid .card:nth-child(16) {
+        animation: fadeUp 0.4s 1.25s ease both;
+      }
+      .news-grid .card:nth-child(17) {
+        animation: fadeUp 0.4s 1.32s ease both;
+      }
+      .news-grid .card:nth-child(18) {
+        animation: fadeUp 0.4s 1.39s ease both;
+      }
+      .news-grid .card:nth-child(19) {
+        animation: fadeUp 0.4s 1.46s ease both;
+      }
+
+      @media (max-width: 960px) {
+        .news-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .card-featured {
+          grid-template-columns: 1fr;
+        }
+        .featured-number {
+          display: none;
+        }
+      }
+      @media (max-width: 600px) {
+        .news-grid {
+          grid-template-columns: 1fr;
+        }
+        .site-nav {
+          padding: 1rem 1.5rem;
+        }
+        .main {
+          padding: 2rem 1.5rem;
+        }
+        .category-hero {
+          padding: 3rem 1.5rem 2rem;
+        }
+        .hero-text h1 {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="site-nav">
+      <span class="nav-logo">The Dispatch</span>
+      <div class="nav-links">
+        <a href="world.html" class="active">World</a>
+        <a href="politics.html">Politics</a>
+        <a href="tech.html">Tech</a>
+        <a href="culture.html">Culture</a>
+        <a href="opinion.html">Opinion</a>
+      </div>
+    </nav>
+
+    <div class="category-hero">
+      <div class="hero-label">Global Coverage</div>
+      <div class="hero-text">
+        <h1>W<span>orld</span></h1>
+        <p>
+          Dispatches from every meridian. Events that shape nations, borders
+          that redraw themselves, and the human stories beneath the headlines.
+        </p>
+      </div>
+      <div class="hero-stat">
+        <div class="num">20</div>
+        <div class="label">Stories</div>
+      </div>
+    </div>
+
+    <main class="main" id="articles"></main>
+
+    <footer class="site-footer">© 2026 The Dispatch — World Edition</footer>
+
+    <script>
+      fetch("/api/world")
+        .then((r) => r.json())
+        .then(({ articles }) => {
+          const cat = articles.filter((a) => a.category === "World");
+          const main = document.getElementById("articles");
+          const [first, ...rest] = cat;
+
+          // Featured
+          main.innerHTML = `
+          <div class="divider"><span>Top Story</span></div>
+          <article class="card-featured">
+            <div>
+              <div class="tag">${first.tag}</div>
+              <h2>${first.title}</h2>
+              <p>${first.description}</p>
+              <div class="card-meta">
+                <span class="card-date">${first.date}</span>
+                <span class="card-author">${first.author}</span>
+                <span class="card-read">${first.readTime}</span>
+              </div>
+            </div>
+            <div class="featured-number">01</div>
+          </article>
+          <div class="divider"><span>Latest</span></div>
+          <div class="news-grid">${rest
+            .map(
+              (a, i) => `
+            <article class="card">
+              <div class="tag">${a.tag}</div>
+              <h3>${a.title}</h3>
+              <p>${a.description}</p>
+              <div class="card-meta">
+                <span class="card-date">${a.date}</span>
+                <span class="card-author">${a.author}</span>
+                <span class="card-read">${a.readTime}</span>
+              </div>
+            </article>`,
+            )
+            .join("")}
+          </div>`;
+        });
+    </script>
+  </body>
+</html>

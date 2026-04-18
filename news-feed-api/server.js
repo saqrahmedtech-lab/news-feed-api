@@ -1,7 +1,11 @@
 import http from "node:http";
-
-import { serveStaticFiles } from "./handlers/serveStaticFiles.js";
+import { handleGetRequests } from "./utils/reqHandlers.js";
+import { serveStaticFiles } from "./utils/serveStaticFiles.js";
 const server = http.createServer((req, res) => {
+  if (req.url.startsWith("/api/")) {
+    handleGetRequests(req, res);
+    return;
+  }
   serveStaticFiles(req, res);
 });
 

@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Politics — The Dispatch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Serif:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f2ede6;
+        --bg2: #e8e2d8;
+        --ink: #18100a;
+        --ink-mid: #3a2e26;
+        --ink-dim: #7a6e64;
+        --accent: #c0150e;
+        --accent2: #1a2b8f;
+        --rule: #ccc6bc;
+        --card-bg: #fff;
+        --font-head: "Bebas Neue", Impact, sans-serif;
+        --font-body: "IBM Plex Serif", Georgia, serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 17px;
+        line-height: 1.65;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ── Nav ── */
+      .site-nav {
+        background: var(--ink);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.9rem 3rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-logo {
+        font-family: var(--font-head);
+        font-size: 1.5rem;
+        letter-spacing: 0.08em;
+        color: #fff;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+      }
+      .nav-links a {
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.5);
+        transition: color 0.2s;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--accent);
+      }
+
+      /* ── Hero ── */
+      .category-hero {
+        background: var(--ink);
+        padding: 0 3rem;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: end;
+        gap: 2rem;
+        overflow: hidden;
+        animation: fadeIn 0.5s ease both;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero-title-wrap {
+        padding: 4rem 0 2rem;
+      }
+
+      .hero-eyebrow {
+        font-size: 0.68rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+      }
+
+      .hero-title {
+        font-family: var(--font-head);
+        font-size: clamp(5rem, 14vw, 11rem);
+        letter-spacing: 0.04em;
+        line-height: 0.88;
+        color: #fff;
+      }
+
+      .hero-title .accent-line {
+        color: var(--accent);
+        display: block;
+      }
+
+      .hero-sub {
+        margin-top: 1.5rem;
+        max-width: 480px;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 0.95rem;
+        font-style: italic;
+        font-weight: 300;
+        line-height: 1.7;
+      }
+
+      .hero-counter {
+        padding-bottom: 2rem;
+        text-align: right;
+      }
+
+      .hero-counter .big {
+        font-family: var(--font-head);
+        font-size: 7rem;
+        line-height: 1;
+        color: rgba(255, 255, 255, 0.07);
+      }
+
+      .hero-counter .label {
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      /* ── Main ── */
+      .main {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 3rem 3rem 5rem;
+      }
+
+      /* ── Divider ── */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .divider span {
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-family: var(--font-head);
+        font-size: 1.1rem;
+      }
+
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 2px;
+        background: var(--ink);
+      }
+
+      /* ── Featured ── */
+      .card-featured {
+        background: var(--card-bg);
+        border-left: 6px solid var(--accent);
+        padding: 2.5rem;
+        margin-bottom: 3rem;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 3rem;
+        align-items: start;
+        animation: slideUp 0.5s 0.1s ease both;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+      }
+
+      .card-featured:hover {
+        transform: translateY(-2px);
+        box-shadow: 6px 6px 0 var(--accent);
+      }
+
+      .card-featured .tag {
+        display: inline-block;
+        background: var(--accent);
+        color: #fff;
+        font-size: 0.62rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 0.25rem 0.75rem;
+        margin-bottom: 1rem;
+        font-family: var(--font-head);
+        font-size: 0.9rem;
+      }
+
+      .card-featured h2 {
+        font-family: var(--font-head);
+        font-size: 2.5rem;
+        letter-spacing: 0.03em;
+        line-height: 1.05;
+        color: var(--ink);
+        margin-bottom: 1rem;
+      }
+
+      .card-featured p {
+        color: var(--ink-mid);
+        font-size: 0.95rem;
+        font-weight: 300;
+        line-height: 1.75;
+      }
+
+      .card-meta {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--rule);
+      }
+
+      .card-date {
+        font-size: 0.78rem;
+        color: var(--ink-dim);
+        font-style: italic;
+      }
+      .card-author {
+        font-size: 0.78rem;
+        color: var(--ink-mid);
+      }
+      .card-read {
+        margin-left: auto;
+        font-size: 0.65rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent2);
+      }
+
+      .featured-side {
+        background: var(--ink);
+        padding: 2rem;
+        color: rgba(255, 255, 255, 0.8);
+      }
+
+      .featured-side .big-num {
+        font-family: var(--font-head);
+        font-size: 5rem;
+        color: var(--accent);
+        line-height: 1;
+      }
+
+      .featured-side .side-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+        margin-top: 0.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .featured-side .side-note {
+        font-size: 0.88rem;
+        font-style: italic;
+        font-weight: 300;
+        line-height: 1.7;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* ── Grid ── */
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border-top: 3px solid var(--rule);
+        padding: 1.6rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+        animation: slideUp 0.4s ease both;
+      }
+
+      .card:hover {
+        border-top-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .card .tag {
+        font-family: var(--font-head);
+        font-size: 0.9rem;
+        letter-spacing: 0.1em;
+        color: var(--accent);
+      }
+
+      .card h3 {
+        font-family: var(--font-head);
+        font-size: 1.35rem;
+        letter-spacing: 0.03em;
+        line-height: 1.1;
+        color: var(--ink);
+        flex: 1;
+      }
+
+      .card p {
+        font-size: 0.88rem;
+        color: var(--ink-mid);
+        font-weight: 300;
+        line-height: 1.7;
+      }
+
+      /* Stagger */
+      .news-grid .card:nth-child(n) {
+        animation-delay: calc(0.2s + var(--i, 0) * 0.07s);
+      }
+
+      .site-footer {
+        background: var(--ink);
+        color: rgba(255, 255, 255, 0.3);
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+      }
+
+      @media (max-width: 960px) {
+        .news-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .card-featured {
+          grid-template-columns: 1fr;
+        }
+        .featured-side {
+          display: none;
+        }
+      }
+      @media (max-width: 600px) {
+        .news-grid {
+          grid-template-columns: 1fr;
+        }
+        .site-nav,
+        .main {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+        .category-hero {
+          padding: 0 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="site-nav">
+      <span class="nav-logo">The Dispatch</span>
+      <div class="nav-links">
+        <a href="world.html">World</a>
+        <a href="politics.html" class="active">Politics</a>
+        <a href="tech.html">Tech</a>
+        <a href="culture.html">Culture</a>
+        <a href="opinion.html">Opinion</a>
+      </div>
+    </nav>
+
+    <div class="category-hero">
+      <div class="hero-title-wrap">
+        <p class="hero-eyebrow">Section — Power & Governance</p>
+        <h1 class="hero-title">Poli<span class="accent-line">tics</span></h1>
+        <p class="hero-sub">
+          Decisions made in chambers of power that ripple outward to every home,
+          street, and ballot box on earth.
+        </p>
+      </div>
+      <div class="hero-counter">
+        <div class="big">20</div>
+        <div class="label">Articles</div>
+      </div>
+    </div>
+
+    <main class="main" id="articles"></main>
+
+    <footer class="site-footer">© 2026 The Dispatch — Politics Edition</footer>
+
+    <script>
+      fetch("/api/politics")
+        .then((r) => r.json())
+        .then(({ articles }) => {
+          const cat = articles.filter((a) => a.category === "Politics");
+          const main = document.getElementById("articles");
+          const [first, ...rest] = cat;
+
+          main.innerHTML = `
+          <div class="divider"><span>Lead Story</span></div>
+          <article class="card-featured">
+            <div>
+              <div class="tag">${first.tag}</div>
+              <h2>${first.title}</h2>
+              <p>${first.description}</p>
+              <div class="card-meta">
+                <span class="card-date">${first.date}</span>
+                <span class="card-author">${first.author}</span>
+                <span class="card-read">${first.readTime}</span>
+              </div>
+            </div>
+            <div class="featured-side">
+              <div class="big-num">01</div>
+              <div class="side-label">Top Story</div>
+              <div class="side-note">"Decisions made in chambers of power ripple outward to every home, street, and ballot box."</div>
+            </div>
+          </article>
+          <div class="divider"><span>More Stories</span></div>
+          <div class="news-grid">${rest
+            .map(
+              (a, i) => `
+            <article class="card" style="--i:${i}">
+              <div class="tag">${a.tag}</div>
+              <h3>${a.title}</h3>
+              <p>${a.description}</p>
+              <div class="card-meta">
+                <span class="card-date">${a.date}</span>
+                <span class="card-author">${a.author}</span>
+                <span class="card-read">${a.readTime}</span>
+              </div>
+            </article>`,
+            )
+            .join("")}
+          </div>`;
+        });
+    </script>
+  </body>
+</html>

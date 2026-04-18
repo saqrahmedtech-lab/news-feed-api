@@ -29,15 +29,31 @@ const fileTypes = {
 };
 
 export async function serveStaticFiles(req, res) {
-  const fileName = req.url === "/" ? "index.html" : req.url.slice(1);
+  const fileName =
+    req.url === "/"
+      ? "index.html"
+      : req.url === "/world"
+        ? "world.html"
+        : req.url === "/politics"
+          ? "politics.html"
+          : req.url === "/tech"
+            ? "tech.html"
+            : req.url === "culture"
+              ? "culture.html"
+              : req.url === "opinion"
+                ? "opinion.html"
+                : req.url.slice(1);
   const filePath = path.join(__dirname, "..", "public", fileName);
   const fileExt = path.extname(filePath);
-  console.log(fileExt);
 
   try {
-    const fileContent = await fs.readFile(filePath, "utf-8");
+    const fileContent = await fs.readFile(filePath);
     res.setHeader("Content-Type", fileTypes[fileExt]);
     res.statusCode = 200;
     res.end(fileContent);
-  } catch (err) {}
+  } catch (err) {
+    res.statusCode = 400;
+    res.setHeader("Content-Type", "text/plain");
+    res.end("File not found");
+  }
 }

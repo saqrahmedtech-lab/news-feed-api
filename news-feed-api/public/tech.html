@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tech — The Dispatch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Serif+Display:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #060b10;
+        --bg2: #0c1520;
+        --panel: #0a1520;
+        --ink: #c8e8d0;
+        --ink-dim: #5a8a6a;
+        --ink-faint: #2a4a38;
+        --accent: #00e87a;
+        --accent2: #0af0ff;
+        --accent3: #f0a800;
+        --rule: #0d2a1e;
+        --font-mono: "Space Mono", "Courier New", monospace;
+        --font-serif: "DM Serif Display", Georgia, serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-mono);
+        font-size: 14px;
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* Scanline overlay */
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(0, 232, 122, 0.012) 2px,
+          rgba(0, 232, 122, 0.012) 4px
+        );
+        pointer-events: none;
+        z-index: 999;
+      }
+
+      /* ── Nav ── */
+      .site-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 2.5rem;
+        border-bottom: 1px solid var(--rule);
+        background: rgba(6, 11, 16, 0.97);
+        backdrop-filter: blur(8px);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-logo {
+        font-family: var(--font-mono);
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--accent);
+        letter-spacing: 0.08em;
+      }
+
+      .nav-logo::before {
+        content: "> ";
+        color: var(--ink-dim);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+      .nav-links a {
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        text-transform: lowercase;
+        color: var(--ink-dim);
+        transition: color 0.2s;
+      }
+      .nav-links a::before {
+        content: "./";
+        color: var(--ink-faint);
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--accent);
+      }
+
+      /* ── Hero ── */
+      .category-hero {
+        padding: 4rem 2.5rem 3rem;
+        border-bottom: 1px solid var(--rule);
+        position: relative;
+        overflow: hidden;
+        animation: bootUp 0.8s ease both;
+      }
+
+      @keyframes bootUp {
+        0% {
+          opacity: 0;
+        }
+        30% {
+          opacity: 0.4;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero-terminal {
+        font-size: 0.72rem;
+        color: var(--ink-dim);
+        margin-bottom: 2rem;
+        font-family: var(--font-mono);
+      }
+
+      .hero-terminal .cmd {
+        color: var(--accent);
+      }
+      .hero-terminal .output {
+        color: var(--ink-faint);
+      }
+
+      .hero-title {
+        font-family: var(--font-serif);
+        font-size: clamp(4rem, 12vw, 9rem);
+        font-style: italic;
+        line-height: 0.88;
+        color: var(--ink);
+        letter-spacing: -0.02em;
+      }
+
+      .hero-title .green {
+        color: var(--accent);
+      }
+      .hero-title .blue {
+        color: var(--accent2);
+      }
+
+      .hero-stats {
+        display: flex;
+        gap: 3rem;
+        margin-top: 2.5rem;
+      }
+
+      .stat-item .num {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: var(--accent);
+        font-family: var(--font-mono);
+      }
+
+      .stat-item .lbl {
+        font-size: 0.65rem;
+        letter-spacing: 0.12em;
+        color: var(--ink-faint);
+        text-transform: uppercase;
+      }
+
+      /* corner decoration */
+      .hero-corner {
+        position: absolute;
+        top: 2rem;
+        right: 2.5rem;
+        font-size: 0.65rem;
+        color: var(--ink-faint);
+        text-align: right;
+        line-height: 1.8;
+      }
+
+      /* ── Main ── */
+      .main {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 2.5rem 2.5rem 5rem;
+      }
+
+      /* ── Divider ── */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .divider span {
+        font-size: 0.65rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+        white-space: nowrap;
+      }
+
+      .divider::before {
+        content: "//";
+        color: var(--ink-faint);
+        font-size: 0.8rem;
+      }
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+
+      /* ── Featured ── */
+      .card-featured {
+        border: 1px solid var(--accent);
+        background: var(--panel);
+        padding: 0;
+        margin-bottom: 3rem;
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        animation: slideUp 0.5s 0.2s ease both;
+        cursor: pointer;
+        transition: box-shadow 0.25s;
+      }
+
+      .card-featured:hover {
+        box-shadow: 0 0 30px rgba(0, 232, 122, 0.12);
+      }
+
+      .featured-body {
+        padding: 2.5rem;
+      }
+
+      .featured-body .tag {
+        font-size: 0.65rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+        background: rgba(0, 232, 122, 0.08);
+        border: 1px solid rgba(0, 232, 122, 0.25);
+        display: inline-block;
+        padding: 0.2rem 0.7rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .featured-body h2 {
+        font-family: var(--font-serif);
+        font-size: 2rem;
+        font-style: italic;
+        line-height: 1.2;
+        color: var(--ink);
+        margin-bottom: 1rem;
+      }
+
+      .featured-body p {
+        font-size: 0.88rem;
+        color: var(--ink-dim);
+        line-height: 1.8;
+      }
+
+      .card-meta {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--rule);
+      }
+
+      .card-date {
+        font-size: 0.72rem;
+        color: var(--ink-faint);
+      }
+      .card-author {
+        font-size: 0.72rem;
+        color: var(--ink-dim);
+      }
+      .card-read {
+        margin-left: auto;
+        font-size: 0.65rem;
+        color: var(--accent2);
+        letter-spacing: 0.1em;
+      }
+
+      .featured-panel {
+        background: rgba(0, 232, 122, 0.04);
+        border-left: 1px solid var(--rule);
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .panel-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ink-faint);
+      }
+
+      .panel-val {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .panel-bar {
+        height: 3px;
+        background: var(--rule);
+        position: relative;
+      }
+
+      .panel-bar::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 70%;
+        background: var(--accent);
+      }
+
+      /* ── Grid ── */
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--rule);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s;
+        position: relative;
+      }
+
+      .card-num {
+        position: absolute;
+        top: 1rem;
+        right: 1.2rem;
+        font-size: 0.6rem;
+        color: var(--ink-faint);
+      }
+
+      .card:hover {
+        border-color: var(--accent);
+        box-shadow: 0 0 16px rgba(0, 232, 122, 0.07);
+      }
+
+      .card .tag {
+        font-size: 0.62rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .card h3 {
+        font-family: var(--font-serif);
+        font-size: 1.1rem;
+        font-style: italic;
+        line-height: 1.3;
+        color: var(--ink);
+        flex: 1;
+      }
+
+      .card p {
+        font-size: 0.8rem;
+        color: var(--ink-dim);
+        line-height: 1.75;
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--rule);
+        text-align: center;
+        padding: 1.5rem;
+        font-size: 0.7rem;
+        color: var(--ink-faint);
+        letter-spacing: 0.1em;
+      }
+
+      .news-grid .card {
+        animation: slideUp 0.4s ease both;
+      }
+      .news-grid .card:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .news-grid .card:nth-child(2) {
+        animation-delay: 0.26s;
+      }
+      .news-grid .card:nth-child(3) {
+        animation-delay: 0.32s;
+      }
+      .news-grid .card:nth-child(4) {
+        animation-delay: 0.38s;
+      }
+      .news-grid .card:nth-child(5) {
+        animation-delay: 0.44s;
+      }
+      .news-grid .card:nth-child(6) {
+        animation-delay: 0.5s;
+      }
+      .news-grid .card:nth-child(7) {
+        animation-delay: 0.56s;
+      }
+      .news-grid .card:nth-child(8) {
+        animation-delay: 0.62s;
+      }
+      .news-grid .card:nth-child(9) {
+        animation-delay: 0.68s;
+      }
+      .news-grid .card:nth-child(10) {
+        animation-delay: 0.74s;
+      }
+      .news-grid .card:nth-child(11) {
+        animation-delay: 0.8s;
+      }
+      .news-grid .card:nth-child(12) {
+        animation-delay: 0.86s;
+      }
+      .news-grid .card:nth-child(13) {
+        animation-delay: 0.92s;
+      }
+      .news-grid .card:nth-child(14) {
+        animation-delay: 0.98s;
+      }
+      .news-grid .card:nth-child(15) {
+        animation-delay: 1.04s;
+      }
+      .news-grid .card:nth-child(16) {
+        animation-delay: 1.1s;
+      }
+      .news-grid .card:nth-child(17) {
+        animation-delay: 1.16s;
+      }
+      .news-grid .card:nth-child(18) {
+        animation-delay: 1.22s;
+      }
+      .news-grid .card:nth-child(19) {
+        animation-delay: 1.28s;
+      }
+
+      @media (max-width: 960px) {
+        .news-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .card-featured {
+          grid-template-columns: 1fr;
+        }
+        .featured-panel {
+          display: none;
+        }
+      }
+      @media (max-width: 600px) {
+        .news-grid {
+          grid-template-columns: 1fr;
+        }
+        .site-nav,
+        .main,
+        .category-hero {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="site-nav">
+      <span class="nav-logo">the_dispatch</span>
+      <div class="nav-links">
+        <a href="world.html">world</a>
+        <a href="politics.html">politics</a>
+        <a href="tech.html" class="active">tech</a>
+        <a href="culture.html">culture</a>
+        <a href="opinion.html">opinion</a>
+      </div>
+    </nav>
+
+    <div class="category-hero">
+      <div class="hero-corner">
+        <div>SYS: online</div>
+        <div>CAT: technology</div>
+        <div>ARTICLES: 20</div>
+        <div>BUILD: 2026.04.17</div>
+      </div>
+      <div class="hero-terminal">
+        <div>
+          <span class="cmd">$ fetch</span> --category=tech --limit=20
+          --sort=latest
+        </div>
+        <div class="output">→ 20 articles loaded successfully</div>
+      </div>
+      <div class="hero-title">
+        <span class="green">Tech</span><br />
+        <span class="blue">nology</span>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="num">20</div>
+          <div class="lbl">articles</div>
+        </div>
+        <div class="stat-item">
+          <div class="num">8</div>
+          <div class="lbl">authors</div>
+        </div>
+        <div class="stat-item">
+          <div class="num">Apr</div>
+          <div class="lbl">2026</div>
+        </div>
+      </div>
+    </div>
+
+    <main class="main" id="articles"></main>
+
+    <footer class="site-footer">
+      © 2026 The Dispatch // Technology Section // All rights reserved
+    </footer>
+
+    <script>
+      fetch("/api/tech")
+        .then((r) => r.json())
+        .then(({ articles }) => {
+          const cat = articles.filter((a) => a.category === "Tech");
+          const main = document.getElementById("articles");
+          const [first, ...rest] = cat;
+
+          main.innerHTML = `
+          <div class="divider"><span>featured</span></div>
+          <article class="card-featured">
+            <div class="featured-body">
+              <div class="tag">${first.tag}</div>
+              <h2>${first.title}</h2>
+              <p>${first.description}</p>
+              <div class="card-meta">
+                <span class="card-date">${first.date}</span>
+                <span class="card-author">${first.author}</span>
+                <span class="card-read">${first.readTime}</span>
+              </div>
+            </div>
+            <div class="featured-panel">
+              <div>
+                <div class="panel-label">Story Index</div>
+                <div class="panel-val">01</div>
+              </div>
+              <div>
+                <div class="panel-label">Relevance</div>
+                <div class="panel-bar"></div>
+              </div>
+              <div>
+                <div class="panel-label">Category</div>
+                <div style="color:var(--accent);font-size:0.8rem;margin-top:0.3rem">${first.tag}</div>
+              </div>
+            </div>
+          </article>
+          <div class="divider"><span>all stories</span></div>
+          <div class="news-grid">${rest
+            .map(
+              (a, i) => `
+            <article class="card">
+              <div class="card-num">[${String(i + 2).padStart(2, "0")}]</div>
+              <div class="tag">${a.tag}</div>
+              <h3>${a.title}</h3>
+              <p>${a.description}</p>
+              <div class="card-meta">
+                <span class="card-date">${a.date}</span>
+                <span class="card-author">${a.author}</span>
+                <span class="card-read">${a.readTime}</span>
+              </div>
+            </article>`,
+            )
+            .join("")}
+          </div>`;
+        });
+    </script>
+  </body>
+</html>

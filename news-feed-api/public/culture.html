@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Culture — The Dispatch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Italiana&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #faf6f0;
+        --bg2: #f2ece0;
+        --bg3: #2c1f10;
+        --ink: #1e1208;
+        --ink-mid: #4a3828;
+        --ink-dim: #8a7060;
+        --accent: #c25a38;
+        --accent2: #8a6830;
+        --accent3: #3a6848;
+        --rule: #d8cfc0;
+        --card-bg: #fff;
+        --font-display: "Italiana", Georgia, serif;
+        --font-body: "Lora", Georgia, serif;
+        --font-sans: "Josefin Sans", sans-serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 17px;
+        line-height: 1.7;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ── Nav ── */
+      .site-nav {
+        background: var(--bg);
+        border-bottom: 1px solid var(--rule);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 3rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .nav-logo {
+        font-family: var(--font-display);
+        font-size: 1.5rem;
+        color: var(--ink);
+        letter-spacing: 0.05em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+      }
+      .nav-links a {
+        font-family: var(--font-sans);
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--ink-dim);
+        transition: color 0.2s;
+        font-weight: 300;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--accent);
+      }
+
+      /* ── Hero ── */
+      .category-hero {
+        background: var(--bg3);
+        padding: 5rem 3rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+        align-items: center;
+        animation: reveal 0.7s ease both;
+      }
+
+      @keyframes reveal {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes up {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero-left {
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        padding-right: 4rem;
+      }
+
+      .hero-sup {
+        font-family: var(--font-sans);
+        font-size: 0.65rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 1.5rem;
+        font-weight: 300;
+      }
+
+      .hero-title {
+        font-family: var(--font-display);
+        font-size: clamp(4.5rem, 10vw, 8rem);
+        color: #f2ece0;
+        line-height: 0.92;
+        letter-spacing: 0.02em;
+      }
+
+      .hero-right {
+        padding-left: 1rem;
+      }
+
+      .hero-pull {
+        font-family: var(--font-body);
+        font-size: 1.25rem;
+        font-style: italic;
+        color: rgba(242, 236, 224, 0.7);
+        line-height: 1.65;
+        font-weight: 400;
+      }
+
+      .hero-rule {
+        width: 48px;
+        height: 2px;
+        background: var(--accent);
+        margin: 1.8rem 0;
+      }
+
+      .hero-count {
+        font-family: var(--font-sans);
+        font-size: 0.7rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(242, 236, 224, 0.35);
+        font-weight: 300;
+      }
+
+      /* ── Main ── */
+      .main {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 3.5rem 3rem 5rem;
+      }
+
+      /* ── Divider ── */
+      .divider {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .divider span {
+        font-family: var(--font-sans);
+        font-size: 0.65rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 300;
+        white-space: nowrap;
+      }
+
+      .divider::before,
+      .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--rule);
+      }
+
+      /* ── Featured ── */
+      .card-featured {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        margin-bottom: 4rem;
+        border: 1px solid var(--rule);
+        animation: up 0.5s 0.1s ease both;
+        cursor: pointer;
+        transition: box-shadow 0.25s;
+      }
+
+      .card-featured:hover {
+        box-shadow: 0 12px 48px rgba(28, 18, 8, 0.12);
+      }
+
+      .featured-accent-col {
+        background: var(--accent);
+        padding: 3rem 2.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .featured-accent-col .number {
+        font-family: var(--font-display);
+        font-size: 6rem;
+        color: rgba(255, 255, 255, 0.15);
+        line-height: 1;
+      }
+
+      .featured-accent-col .quote {
+        font-family: var(--font-body);
+        font-size: 1rem;
+        font-style: italic;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.7;
+      }
+
+      .featured-accent-col .cat-label {
+        font-family: var(--font-sans);
+        font-size: 0.62rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.6);
+        font-weight: 300;
+      }
+
+      .featured-body {
+        background: var(--card-bg);
+        padding: 3rem;
+      }
+
+      .featured-body .tag {
+        font-family: var(--font-sans);
+        font-size: 0.62rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent2);
+        font-weight: 300;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .featured-body h2 {
+        font-family: var(--font-display);
+        font-size: 2.2rem;
+        line-height: 1.15;
+        color: var(--ink);
+        margin-bottom: 1.2rem;
+      }
+
+      .featured-body p {
+        font-size: 0.95rem;
+        color: var(--ink-mid);
+        line-height: 1.8;
+        font-style: italic;
+      }
+
+      .card-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 1.8rem;
+        padding-top: 1.2rem;
+        border-top: 1px solid var(--rule);
+      }
+
+      .card-date {
+        font-size: 0.78rem;
+        color: var(--ink-dim);
+        font-style: italic;
+        font-family: var(--font-body);
+      }
+      .card-author {
+        font-size: 0.78rem;
+        color: var(--ink-mid);
+        font-family: var(--font-sans);
+        font-weight: 300;
+        letter-spacing: 0.05em;
+      }
+      .card-read {
+        margin-left: auto;
+        font-size: 0.65rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--accent3);
+        font-family: var(--font-sans);
+        font-weight: 300;
+      }
+
+      /* ── Grid ── */
+      .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+
+      .card {
+        background: var(--card-bg);
+        border: 1px solid var(--rule);
+        border-top: 3px solid transparent;
+        padding: 1.8rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        cursor: pointer;
+        transition:
+          border-top-color 0.25s,
+          transform 0.25s,
+          box-shadow 0.25s;
+      }
+
+      .card:hover {
+        border-top-color: var(--accent);
+        transform: translateY(-3px);
+        box-shadow: 0 8px 32px rgba(28, 18, 8, 0.08);
+      }
+
+      .card .tag {
+        font-family: var(--font-sans);
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--accent2);
+        font-weight: 300;
+      }
+
+      .card h3 {
+        font-family: var(--font-display);
+        font-size: 1.35rem;
+        line-height: 1.25;
+        color: var(--ink);
+        flex: 1;
+      }
+
+      .card p {
+        font-size: 0.88rem;
+        color: var(--ink-mid);
+        line-height: 1.75;
+        font-style: italic;
+      }
+
+      .site-footer {
+        background: var(--bg3);
+        color: rgba(242, 236, 224, 0.3);
+        text-align: center;
+        padding: 2rem;
+        font-family: var(--font-sans);
+        font-size: 0.7rem;
+        letter-spacing: 0.12em;
+        font-weight: 300;
+      }
+
+      .news-grid .card {
+        animation: up 0.45s ease both;
+      }
+      .news-grid .card:nth-child(1) {
+        animation-delay: 0.2s;
+      }
+      .news-grid .card:nth-child(2) {
+        animation-delay: 0.27s;
+      }
+      .news-grid .card:nth-child(3) {
+        animation-delay: 0.34s;
+      }
+      .news-grid .card:nth-child(4) {
+        animation-delay: 0.41s;
+      }
+      .news-grid .card:nth-child(5) {
+        animation-delay: 0.48s;
+      }
+      .news-grid .card:nth-child(6) {
+        animation-delay: 0.55s;
+      }
+      .news-grid .card:nth-child(7) {
+        animation-delay: 0.62s;
+      }
+      .news-grid .card:nth-child(8) {
+        animation-delay: 0.69s;
+      }
+      .news-grid .card:nth-child(9) {
+        animation-delay: 0.76s;
+      }
+      .news-grid .card:nth-child(10) {
+        animation-delay: 0.83s;
+      }
+      .news-grid .card:nth-child(11) {
+        animation-delay: 0.9s;
+      }
+      .news-grid .card:nth-child(12) {
+        animation-delay: 0.97s;
+      }
+      .news-grid .card:nth-child(13) {
+        animation-delay: 1.04s;
+      }
+      .news-grid .card:nth-child(14) {
+        animation-delay: 1.11s;
+      }
+      .news-grid .card:nth-child(15) {
+        animation-delay: 1.18s;
+      }
+      .news-grid .card:nth-child(16) {
+        animation-delay: 1.25s;
+      }
+      .news-grid .card:nth-child(17) {
+        animation-delay: 1.32s;
+      }
+      .news-grid .card:nth-child(18) {
+        animation-delay: 1.39s;
+      }
+      .news-grid .card:nth-child(19) {
+        animation-delay: 1.46s;
+      }
+
+      @media (max-width: 960px) {
+        .news-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .card-featured {
+          grid-template-columns: 1fr;
+        }
+        .featured-accent-col {
+          display: none;
+        }
+        .category-hero {
+          grid-template-columns: 1fr;
+        }
+        .hero-left {
+          border-right: none;
+          padding-right: 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          padding-bottom: 2rem;
+        }
+      }
+      @media (max-width: 600px) {
+        .news-grid {
+          grid-template-columns: 1fr;
+        }
+        .site-nav,
+        .main,
+        .category-hero {
+          padding-left: 1.5rem;
+          padding-right: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="site-nav">
+      <span class="nav-logo">The Dispatch</span>
+      <div class="nav-links">
+        <a href="world.html">World</a>
+        <a href="politics.html">Politics</a>
+        <a href="tech.html">Tech</a>
+        <a href="culture.html" class="active">Culture</a>
+        <a href="opinion.html">Opinion</a>
+      </div>
+    </nav>
+
+    <div class="category-hero">
+      <div class="hero-left">
+        <p class="hero-sup">Arts · Society · Ideas</p>
+        <h1 class="hero-title">Cul<br />ture</h1>
+      </div>
+      <div class="hero-right">
+        <p class="hero-pull">
+          Where meaning is made — in the galleries, concert halls, streets, and
+          screens that reflect who we are and who we are becoming.
+        </p>
+        <div class="hero-rule"></div>
+        <p class="hero-count">20 Stories This Edition</p>
+      </div>
+    </div>
+
+    <main class="main" id="articles"></main>
+
+    <footer class="site-footer">© 2026 The Dispatch — Culture Edition</footer>
+
+    <script>
+      fetch("/api/culture")
+        .then((r) => r.json())
+        .then(({ articles }) => {
+          const cat = articles.filter((a) => a.category === "Culture");
+          const main = document.getElementById("articles");
+          const [first, ...rest] = cat;
+
+          main.innerHTML = `
+          <div class="divider"><span>Featured Story</span></div>
+          <article class="card-featured">
+            <div class="featured-accent-col">
+              <div class="number">01</div>
+              <div class="quote">"Culture is the sum of all the forms of art, of love, and of thought, which have enabled man to be less enslaved."</div>
+              <div class="cat-label">Culture — The Dispatch</div>
+            </div>
+            <div class="featured-body">
+              <span class="tag">${first.tag}</span>
+              <h2>${first.title}</h2>
+              <p>${first.description}</p>
+              <div class="card-meta">
+                <span class="card-date">${first.date}</span>
+                <span class="card-author">${first.author}</span>
+                <span class="card-read">${first.readTime}</span>
+              </div>
+            </div>
+          </article>
+          <div class="divider"><span>All Stories</span></div>
+          <div class="news-grid">${rest
+            .map(
+              (a, i) => `
+            <article class="card">
+              <div class="tag">${a.tag}</div>
+              <h3>${a.title}</h3>
+              <p>${a.description}</p>
+              <div class="card-meta">
+                <span class="card-date">${a.date}</span>
+                <span class="card-author">${a.author}</span>
+                <span class="card-read">${a.readTime}</span>
+              </div>
+            </article>`,
+            )
+            .join("")}
+          </div>`;
+        });
+    </script>
+  </body>
+</html>
