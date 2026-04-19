@@ -35,11 +35,11 @@ const urlToFile = {
   "/tech": "tech.html",
   "/culture": "culture.html",
   "/opinion": "opinion.html",
+  "/article": "article.html",
 };
 
-export async function serveStaticFiles(req, res) {
-  const fileName = urlToFile[req.url] ?? req.url.slice(1);
-
+export async function serveStaticFiles(req, res, url) {
+  const fileName = urlToFile[url.pathname] ?? req.url.slice(1);
   const filePath = path.join(__dirname, "..", "public", fileName);
   const fileExt = path.extname(filePath);
 
