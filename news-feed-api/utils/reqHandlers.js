@@ -30,7 +30,7 @@ export async function handleGetRequests(req, res, url) {
     try {
       const dataContent = await fs.readFile(dataPath, "utf-8");
       const parsed = JSON.parse(dataContent);
-      const article = parsed.articles.find((el) => +el.id === +id);
+      const article = parsed.articles.find((el) => el.id == id);
       res.statusCode = article ? 200 : 404;
       res.setHeader("Content-Type", "application/json");
       res.end(JSON.stringify({ data: article ?? null }));
@@ -69,7 +69,11 @@ export async function handlePostRequests(req, res, url) {
 
     const dataContent = await fs.readFile(dataPath, "utf-8");
     const parsed = JSON.parse(dataContent);
-    parsed.articles.unshift({ ...payload, id: crypto.randomUUID() });
+    parsed.articles.unshift({
+      ...payload,
+      id: crypto.randomUUID(),
+      readTime: `${payload.readTime} min read`,
+    });
     await fs.writeFile(dataPath, JSON.stringify(parsed, null, 2));
     res.statusCode = 201;
     res.setHeader("Content-Type", "application/json");
