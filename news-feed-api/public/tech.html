@@ -593,7 +593,9 @@
     </footer>
 
     <script>
-      let allArticles = [];
+      function goToArticle(id) {
+        window.location.href = `/article?id=${id}`;
+      }
 
       function renderArticles(articles) {
         const main = document.getElementById("articles");
@@ -604,7 +606,7 @@
         const [first, ...rest] = articles;
         main.innerHTML = `
           <div class="divider"><span>featured</span></div>
-          <article class="card-featured">
+          <article class="card-featured" data-id="${first.id}">
             <div class="featured-body">
               <div class="tag">${first.tag}</div>
               <h2>${first.title}</h2>
@@ -634,7 +636,7 @@
           <div class="news-grid">${rest
             .map(
               (a, i) => `
-            <article class="card">
+            <article class="card" data-id="${a.id}">
               <div class="card-num">[${String(i + 2).padStart(2, "0")}]</div>
               <div class="tag">${a.tag}</div>
               <h3>${a.title}</h3>
@@ -652,12 +654,19 @@
 
       function fetchArticles(name = "") {
         const url = name
-          ? `/api/techs?search=${encodeURIComponent(name)}`
+          ? `/api/tech?search=${encodeURIComponent(name)}`
           : "/api/tech";
         fetch(url)
           .then((r) => r.json())
-          .then(({ data }) => renderArticles(data));
+          .then(({ data }) => {
+            renderArticles(data);
+          });
       }
+
+      document.getElementById("articles").addEventListener("click", (e) => {
+        const card = e.target.closest("[data-id]");
+        if (card) goToArticle(card.dataset.id);
+      });
 
       fetchArticles();
       document.getElementById("search-input").addEventListener("input", (e) => {

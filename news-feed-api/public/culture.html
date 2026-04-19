@@ -548,7 +548,9 @@
     <footer class="site-footer">© 2026 The Dispatch — Culture Edition</footer>
 
     <script>
-      let allArticles = [];
+      function goToArticle(id) {
+        window.location.href = `/article?id=${id}`;
+      }
 
       function renderArticles(articles) {
         const main = document.getElementById("articles");
@@ -560,7 +562,7 @@
         const [first, ...rest] = articles;
         main.innerHTML = `
           <div class="divider"><span>Featured Story</span></div>
-          <article class="card-featured">
+          <article class="card-featured" data-id="${first.id}">
             <div class="featured-accent-col">
               <div class="number">01</div>
               <div class="quote">"Culture is the sum of all the forms of art, of love, and of thought, which have enabled man to be less enslaved."</div>
@@ -581,7 +583,7 @@
           <div class="news-grid">${rest
             .map(
               (a) => `
-            <article class="card">
+            <article class="card" data-id="${a.id}">
               <div class="tag">${a.tag}</div>
               <h3>${a.title}</h3>
               <p>${a.description}</p>
@@ -602,8 +604,15 @@
           : "/api/culture";
         fetch(url)
           .then((r) => r.json())
-          .then(({ data }) => renderArticles(data));
+          .then(({ data }) => {
+            renderArticles(data);
+          });
       }
+
+      document.getElementById("articles").addEventListener("click", (e) => {
+        const card = e.target.closest("[data-id]");
+        if (card) goToArticle(card.dataset.id);
+      });
 
       fetchArticles();
       document.getElementById("search-input").addEventListener("input", (e) => {

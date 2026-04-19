@@ -543,7 +543,9 @@
     <footer class="site-footer">© 2026 The Dispatch — World Edition</footer>
 
     <script>
-      let allArticles = [];
+      function goToArticle(id) {
+        window.location.href = `/article?id=${id}`;
+      }
 
       function renderArticles(articles) {
         const main = document.getElementById("articles");
@@ -555,7 +557,7 @@
         const [first, ...rest] = articles;
         main.innerHTML = `
           <div class="divider"><span>Top Story</span></div>
-          <article class="card-featured">
+          <article class="card-featured" data-id="${first.id}">
             <div>
               <div class="tag">${first.tag}</div>
               <h2>${first.title}</h2>
@@ -572,7 +574,7 @@
           <div class="news-grid">${rest
             .map(
               (a) => `
-            <article class="card">
+            <article class="card" data-id="${a.id}">
               <div class="tag">${a.tag}</div>
               <h3>${a.title}</h3>
               <p>${a.description}</p>
@@ -593,8 +595,15 @@
           : "/api/world";
         fetch(url)
           .then((r) => r.json())
-          .then(({ data }) => renderArticles(data));
+          .then(({ data }) => {
+            renderArticles(data);
+          });
       }
+
+      document.getElementById("articles").addEventListener("click", (e) => {
+        const card = e.target.closest("[data-id]");
+        if (card) goToArticle(card.dataset.id);
+      });
 
       fetchArticles();
       document.getElementById("search-input").addEventListener("input", (e) => {

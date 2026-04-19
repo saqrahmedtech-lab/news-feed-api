@@ -78,6 +78,10 @@
     </footer>
 
     <script>
+      function goToArticle(id) {
+        window.location.href = `/article?id=${id}`;
+      }
+
       function fetchArticles(search = "") {
         const url = search ? `/api/news?search=${encodeURIComponent(search)}` : "/api/news";
         fetch(url)
@@ -87,7 +91,7 @@
             container.innerHTML = data
               .map(
                 (a) => `
-              <article class="card">
+              <article class="card" data-id="${a.id}">
                 <div class="card__tag">${a.tag}</div>
                 <h2 class="card__title">${a.title}</h2>
                 <p class="card__desc">${a.description}</p>
@@ -100,6 +104,11 @@
               .join("");
           });
       }
+
+      document.getElementById("news-container").addEventListener("click", (e) => {
+        const card = e.target.closest("[data-id]");
+        if (card) goToArticle(card.dataset.id);
+      });
 
       fetchArticles();
       document.getElementById("search-input").addEventListener("input", (e) => {
