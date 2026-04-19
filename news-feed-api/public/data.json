@@ -1,6 +1,34 @@
 {
   "articles": [
     {
+      "category": "Culture",
+      "tag": "test tag",
+      "title": "kjn",
+      "description": "lkm",
+      "author": "Ahmed Essam",
+      "readTime": "5",
+      "date": "April 21, 2026",
+      "id": "c7c0d8dc-7514-4d6f-9cfb-547dcb72b9d7"
+    },
+    {
+      "category": "World",
+      "tag": "test tag",
+      "title": "sx",
+      "description": "asx",
+      "author": "Ahmed Essam",
+      "readTime": "5",
+      "date": "April 27, 2026"
+    },
+    {
+      "category": "Politics",
+      "tag": "test tag",
+      "title": "asx",
+      "description": "asx",
+      "author": "Ahmed Essam",
+      "readTime": "5",
+      "date": "April 29, 2026"
+    },
+    {
       "id": 1,
       "category": "World",
       "tag": "Breaking",

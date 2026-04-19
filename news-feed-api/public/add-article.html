@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Article — The Dispatch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f7f4ef;
+        --ink: #1a1814;
+        --ink-light: #4a4540;
+        --ink-faint: #8a847e;
+        --rule: #d6d0c8;
+        --accent: #b5260e;
+        --accent-2: #1a5c8f;
+        --font-display: "Playfair Display", Georgia, serif;
+        --font-body: "Source Serif 4", Georgia, serif;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--bg);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 16px;
+        line-height: 1.7;
+        min-height: 100vh;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ── Nav ── */
+      .site-nav {
+        border-bottom: 2px solid var(--ink);
+        padding: 1rem 2.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .nav-logo {
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--ink);
+      }
+
+      .nav-back {
+        margin-left: auto;
+        font-size: 0.78rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--accent);
+        background: none;
+        border: none;
+        font-family: var(--font-body);
+        cursor: pointer;
+      }
+
+      .nav-back:hover {
+        text-decoration: underline;
+      }
+
+      /* ── Page header ── */
+      .page-header {
+        max-width: 760px;
+        margin: 3rem auto 0;
+        padding: 0 2rem;
+        border-bottom: 1px solid var(--rule);
+        padding-bottom: 2rem;
+      }
+
+      .page-header h1 {
+        font-family: var(--font-display);
+        font-size: 2.4rem;
+        font-style: italic;
+        line-height: 1.15;
+        color: var(--ink);
+      }
+
+      .page-header p {
+        margin-top: 0.5rem;
+        font-size: 0.95rem;
+        color: var(--ink-faint);
+      }
+
+      /* ── Form ── */
+      .form-wrap {
+        max-width: 760px;
+        margin: 2.5rem auto 6rem;
+        padding: 0 2rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        margin-bottom: 1.5rem;
+      }
+
+      label {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--ink-light);
+        font-weight: 600;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        background: #fff;
+        border: 1px solid var(--rule);
+        border-bottom: 2px solid var(--ink);
+        color: var(--ink);
+        font-family: var(--font-body);
+        font-size: 1rem;
+        padding: 0.7rem 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+        appearance: none;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: var(--accent-2);
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      select {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231a1814' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        padding-right: 2.5rem;
+        cursor: pointer;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.2rem;
+      }
+
+      /* ── Submit ── */
+      .form-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid var(--rule);
+      }
+
+      .btn-submit {
+        background: var(--ink);
+        color: #fff;
+        border: none;
+        font-family: var(--font-body);
+        font-size: 0.85rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 0.85rem 2.5rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .btn-submit:hover {
+        background: var(--accent);
+      }
+      .btn-submit:disabled {
+        background: var(--ink-faint);
+        cursor: not-allowed;
+      }
+
+      /* ── Feedback ── */
+      .feedback {
+        display: none;
+        font-size: 0.88rem;
+        padding: 0.6rem 1rem;
+        border-left: 3px solid;
+      }
+
+      .feedback.success {
+        border-color: #2a7a4b;
+        color: #2a7a4b;
+        background: #f0faf4;
+      }
+
+      .feedback.error {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: #fdf4f3;
+      }
+
+      @media (max-width: 600px) {
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="site-nav">
+      <span class="nav-logo">The Dispatch</span>
+      <button class="nav-back" onclick="history.back()">← Back</button>
+    </nav>
+
+    <div class="page-header">
+      <h1>Add New Article</h1>
+      <p>Fill in the fields below to publish a new article.</p>
+    </div>
+
+    <div class="form-wrap">
+      <form id="article-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+              <option value="" disabled selected>Select a category</option>
+              <option value="World">World</option>
+              <option value="Politics">Politics</option>
+              <option value="Tech">Tech</option>
+              <option value="Culture">Culture</option>
+              <option value="Opinion">Opinion</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="tag">Tag</label>
+            <input
+              id="tag"
+              name="tag"
+              type="text"
+              placeholder="e.g. Breaking, Analysis…"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input
+            id="title"
+            name="title"
+            type="text"
+            placeholder="Article headline"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            placeholder="Article body / summary…"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="author">Author</label>
+            <input
+              id="author"
+              name="author"
+              type="text"
+              placeholder="Full name"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="readTime">Read Time</label>
+            <input
+              id="readTime"
+              name="readTime"
+              type="text"
+              placeholder="e.g. 5 min read"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="date">Date</label>
+          <input id="date" name="date" type="date" required />
+        </div>
+
+        <div class="form-actions">
+          <button class="btn-submit" type="submit">Publish Article</button>
+          <div class="feedback" id="feedback"></div>
+        </div>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("article-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const btn = e.target.querySelector(".btn-submit");
+          const feedback = document.getElementById("feedback");
+          const form = e.target;
+
+          const rawDate = new Date(form.date.value + "T00:00:00");
+          const formattedDate = rawDate.toLocaleDateString("en-US", {
+            month: "long",
+            day: "numeric",
+            year: "numeric",
+          });
+
+          const body = {
+            category: form.category.value,
+            tag: form.tag.value,
+            title: form.title.value,
+            description: form.description.value,
+            author: form.author.value,
+            readTime: form.readTime.value,
+            date: formattedDate,
+          };
+
+          btn.disabled = true;
+          btn.textContent = "Publishing…";
+          feedback.style.display = "none";
+
+          try {
+            const res = await fetch("/api/articles", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(body),
+            });
+
+            if (res.ok) {
+              feedback.className = "feedback success";
+              feedback.textContent = "Article published successfully.";
+              form.reset();
+            } else {
+              const { error } = await res.json();
+              feedback.className = "feedback error";
+              feedback.textContent = error || "Something went wrong.";
+            }
+          } catch {
+            feedback.className = "feedback error";
+            feedback.textContent = "Network error. Please try again.";
+          } finally {
+            feedback.style.display = "block";
+            btn.disabled = false;
+            btn.textContent = "Publish Article";
+          }
+        });
+    </script>
+  </body>
+</html>

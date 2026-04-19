@@ -36,6 +36,7 @@ const urlToFile = {
   "/culture": "culture.html",
   "/opinion": "opinion.html",
   "/article": "article.html",
+  "/add-article": "add-article.html",
 };
 
 export async function serveStaticFiles(req, res, url) {
